@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Comprehension: Chapter 7 - The Boy in the Striped Pyjamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .main-title { color: #1e293b; }
+        .sub-title { color: #334155; }
+        .accent-text-coral { color: #FF6B6B; }
+        .accent-text-yellow { color: #FFD166; }
+        .accent-text-teal { color: #06D6A0; }
+        .accent-text-blue { color: #118AB2; }
+        .accent-text-dark-pink { color: #EF476F; }
+
+        .llm-output-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            color: #334155;
+            min-height: 50px;
+        }
+        .llm-button {
+            background-color: #06D6A0; /* Teal for action */
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: background-color 0.2s ease-in-out;
+            font-size: 0.875rem;
+        }
+        .llm-button:hover {
+            background-color: #04b383;
+        }
+        .quiz-question {
+            background-color: #f0f9ff; /* bg-blue-50 */
+            border: 1px solid #bfdbfe; /* border-blue-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .quiz-option {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1; /* border-slate-300 */
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .quiz-option:hover {
+            background-color: #f8fafc;
+        }
+        .quiz-option.selected {
+            background-color: #bae6fd; /* bg-sky-200 */
+            border-color: #38bdf8; /* border-sky-400 */
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7; /* bg-green-100 */
+            border-color: #22c55e; /* border-green-500 */
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2; /* bg-red-100 */
+            border-color: #ef4444; /* border-red-500 */
+        }
+        .rationale {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-left: 4px solid;
+            border-radius: 0.25rem;
+        }
+        .rationale.correct {
+            border-color: #22c55e; /* green-500 */
+            background-color: #f0fdf4; /* green-50 */
+            color: #16a34a; /* green-600 */
+        }
+        .rationale.incorrect {
+            border-color: #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+            color: #dc2626; /* red-600 */
+        }
+        .quiz-submit-btn {
+            background-color: #118AB2;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 1.5rem;
+        }
+        .quiz-submit-btn:hover {
+            background-color: #0d6e8e;
+        }
+        .quiz-results {
+            background-color: #e0f2fe;
+            border: 1px solid #7dd3fc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold main-title mb-2">Reading Comprehension & Vocabulary Builder</h1>
+            <p class="text-xl md:text-2xl sub-title accent-text-blue">Exploring Chapter 7: 'How Mother Took Credit for Something That She Hadn't Done'</p>
+            <p class="mt-4 text-slate-600 text-sm md:text-base">
+                This interactive tool helps you prepare for and review Chapter 7 of *The Boy in the Striped Pyjamas*. It includes pre-reading vocabulary, purpose-setting questions, a comprehension quiz, and post-reading discussion prompts.
+            </p>
+        </header>
+
+        <section class="section-card">
+            <h2 class="text-2xl font-semibold sub-title mb-4 accent-text-yellow">Before Reading: Prepare Your Mind</h2>
+            <p class="text-slate-600 mb-6">
+                Before you dive into Chapter 7, let's activate your prior knowledge and review some key vocabulary. Understanding these words and questions will help you better grasp the chapter's events and themes.
+            </p>
+
+            <h3 class="text-xl font-semibold text-slate-700 mb-3">Key Vocabulary Preview:</h3>
+            <p class="text-slate-600 mb-4">Click '✨ Get Definition' for a simple explanation of each word in context.</p>
+            <div class="space-y-4">
+                <div class="p-4 border rounded-lg bg-yellow-50 border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800">1. Profoundly</h4>
+                    <p class="text-sm text-yellow-700">Meaning: Very great or intense.</p>
+                    <button class="llm-button" onclick="getDefinition('profoundly', 'vocab1Output')">✨ Get Definition</button>
+                    <div id="vocab1Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-yellow-50 border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800">2. Desolate</h4>
+                    <p class="text-sm text-yellow-700">Meaning: Empty and lonely.</p>
+                    <button class="llm-button" onclick="getDefinition('desolate', 'vocab2Output')">✨ Get Definition</button>
+                    <div id="vocab2Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-yellow-50 border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800">3. Catalyst</h4>
+                    <p class="text-sm text-yellow-700">Meaning: Something that causes a change or event.</p>
+                    <button class="llm-button" onclick="getDefinition('catalyst', 'vocab3Output')">✨ Get Definition</button>
+                    <div id="vocab3Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-yellow-50 border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800">4. Condescending</h4>
+                    <p class="text-sm text-yellow-700">Meaning: Showing that you think you are more important or intelligent than other people.</p>
+                    <button class="llm-button" onclick="getDefinition('condescending', 'vocab4Output')">✨ Get Definition</button>
+                    <div id="vocab4Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-yellow-50 border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800">5. Dehumanizing</h4>
+                    <p class="text-sm text-yellow-700">Meaning: Treating people as if they are not human.</p>
+                    <button class="llm-button" onclick="getDefinition('dehumanizing', 'vocab5Output')">✨ Get Definition</button>
+                    <div id="vocab5Output" class="llm-output-box hidden"></div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-slate-700 mt-8 mb-3">Pre-Reading Questions:</h3>
+            <p class="text-slate-600 mb-4">Think about these questions before you read the chapter. Click '✨ Brainstorm Ideas' for prompts.</p>
+            <div class="space-y-4">
+                <div class="p-4 border rounded-lg bg-blue-50 border-blue-200">
+                    <h4 class="font-semibold text-blue-800">1. How might a new, unfamiliar environment affect a child's feelings and behavior?</h4>
+                    <button class="llm-button" onclick="getBrainstormIdeas('child\'s feelings and behavior in a new, unfamiliar environment', 'prQ1Output')">✨ Brainstorm Ideas</button>
+                    <div id="prQ1Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-blue-50 border-blue-200">
+                    <h4 class="font-semibold text-blue-800">2. What role do adult authority figures play in a child's understanding of the world, especially when that world is confusing or difficult?</h4>
+                    <button class="llm-button" onclick="getBrainstormIdeas('the role of adult authority figures in a child\'s understanding of a confusing world', 'prQ2Output')">✨ Brainstorm Ideas</button>
+                    <div id="prQ2Output" class="llm-output-box hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2 class="text-2xl font-semibold sub-title mb-4 accent-text-coral">After Reading: Test Your Understanding</h2>
+            <p class="text-slate-600 mb-6">
+                Now that you've read Chapter 7, let's check your comprehension, review more vocabulary, and reflect on the key themes and events.
+            </p>
+
+            <h3 class="text-xl font-semibold text-slate-700 mb-3">Comprehension Quiz:</h3>
+            <p class="text-slate-600 mb-4">Select the best answer for each question. Click 'Submit Quiz' to see your score and explanations.</p>
+            <div id="quizContainer">
+                </div>
+            <button class="quiz-submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+            <div id="quizResults" class="quiz-results hidden"></div>
+
+
+            <h3 class="text-xl font-semibold text-slate-700 mt-8 mb-3">Vocabulary Review:</h3>
+            <p class="text-slate-600 mb-4">Practice understanding these words from the chapter. Click '✨ Check Understanding' for a sentence using the word or a synonym.</p>
+            <div class="space-y-4">
+                <div class="p-4 border rounded-lg bg-green-50 border-green-200">
+                    <h4 class="font-semibold text-green-800">1. Pervasive</h4>
+                    <p class="text-sm text-green-700">Meaning: Existing in every part of something.</p>
+                    <button class="llm-button" onclick="checkUnderstanding('pervasive', 'vocabR1Output')">✨ Check Understanding</button>
+                    <div id="vocabR1Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-green-50 border-green-200">
+                    <h4 class="font-semibold text-green-800">2. Disillusionment</h4>
+                    <p class="text-sm text-green-700">Meaning: A feeling of disappointment.</p>
+                    <button class="llm-button" onclick="checkUnderstanding('disillusionment', 'vocabR2Output')">✨ Check Understanding</button>
+                    <div id="vocabR2Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-green-50 border-green-200">
+                    <h4 class="font-semibold text-green-800">3. Microcosm</h4>
+                    <p class="text-sm text-green-700">Meaning: A small place, society, or situation that has the same characteristics as a much larger one.</p>
+                    <button class="llm-button" onclick="checkUnderstanding('microcosm', 'vocabR3Output')">✨ Check Understanding</button>
+                    <div id="vocabR3Output" class="llm-output-box hidden"></div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-slate-700 mt-8 mb-3">Discussion & Reflection Prompts:</h3>
+            <p class="text-slate-600 mb-4">Think about these questions and type your thoughts. Click '✨ Get AI Feedback' for additional perspectives.</p>
+            <div class="space-y-4">
+                <div class="p-4 border rounded-lg bg-purple-50 border-purple-200">
+                    <h4 class="font-semibold text-purple-800">1. How does Bruno's view of his new home change, and what specific events in Chapter 7 contribute to this change?</h4>
+                    <textarea id="discussionQ1Input" class="w-full p-2 mt-2 border rounded-md text-slate-700" rows="3" placeholder="Type your answer here..."></textarea>
+                    <button class="llm-button" onclick="getAIFeedback(document.getElementById('discussionQ1Input').value, 'discussionQ1Output', 'how Bruno\'s view of his new home changes and specific events in Chapter 7 contributing to this change')">✨ Get AI Feedback</button>
+                    <div id="discussionQ1Output" class="llm-output-box hidden"></div>
+                </div>
+                <div class="p-4 border rounded-lg bg-purple-50 border-purple-200">
+                    <h4 class="font-semibold text-purple-800">2. Discuss the contrasting personalities of Lieutenant Kotler and Pavel, and what their interactions reveal about the environment at Out-With.</h4>
+                    <textarea id="discussionQ2Input" class="w-full p-2 mt-2 border rounded-md text-slate-700" rows="3" placeholder="Type your answer here..."></textarea>
+                    <button class="llm-button" onclick="getAIFeedback(document.getElementById('discussionQ2Input').value, 'discussionQ2Output', 'the contrasting personalities of Lieutenant Kotler and Pavel, and what their interactions reveal about the environment at Out-With')">✨ Get AI Feedback</button>
+                    <div id="discussionQ2Output" class="llm-output-box hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 py-8 border-t border-slate-300">
+            <p class="text-slate-600 text-sm">
+                This tool is designed to enhance your understanding of *The Boy in the Striped Pyjamas*. Continue your learning journey by re-reading the chapter or exploring other analytical resources.
+            </p>
+        </footer>
+
+    </div>
+
+<script>
+    const API_KEY = ""; // Place your actual Gemini API Key here if you wish to use models other than the default.
+
+    // Quiz data (from previous turn, simplified)
+    const quizQuestions = [
+        {
+          "question": "In Chapter 7, why did Bruno decide to build a swing?",
+          "answerOptions": [
+            {
+              "text": "To impress Lieutenant Kotler with his building skills.",
+              "rationale": "Bruno's interaction with Kotler regarding the swing was a means to an end (getting a tire), not the motivation for building it; he instinctively disliked Kotler.",
+              "isCorrect": false
+            },
+            {
+              "text": "To create a 'new diversion' due to his profound boredom and isolation at Out-With.",
+              "rationale": "The analysis highlights Bruno's deep-seated dissatisfaction and fear of 'going mad' from boredom as the direct cause for seeking entertainment.",
+              "isCorrect": true
+            },
+            {
+              "text": "To have a specific place to meet his new friend Shmuel.",
+              "rationale": "Bruno has not yet met Shmuel at this point in the story; the swing is an attempt to alleviate his current loneliness.",
+              "isCorrect": false
+            },
+            {
+              "text": "To practice for a future career as an explorer.",
+              "rationale": "While Bruno associates the swing with 'knights and adventures,' his immediate goal was to find a way to entertain himself, not career practice.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "Mother told Bruno that Herr Roller behaved strangely because of what?",
+          "answerOptions": [
+            {
+              "text": "Herr Roller was naturally eccentric and enjoyed arguing with himself.",
+              "rationale": "Mother's explanation pointed to a specific cause for his behavior, not a natural eccentricity." ,
+              "isCorrect": false
+            },
+            {
+              "text": "Herr Roller was pretending to be mad to avoid work.",
+              "rationale": "The analysis indicates Mother's explanation was compassionate and linked his behavior to a past traumatic event.",
+              "isCorrect": false
+            },
+            {
+              "text": "Herr Roller suffered a terrible head injury during the Great War.",
+              "rationale": "The analysis states Mother explained his actions were due to a 'terrible injury during the Great War, an injury to his head.'",
+              "isCorrect": true
+            },
+            {
+              "text": "Herr Roller was simply a grumpy old man who disliked children.",
+              "rationale": "Mother described him as a 'very lovely young man' before his injury and urged Bruno not to laugh at his suffering.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "When Bruno asked Lieutenant Kotler for a tire, how did Kotler act?",
+          "answerOptions": [
+            {
+              "text": "Kind and helpful, immediately offering assistance.",
+              "rationale": "The analysis notes Bruno's instinctive dislike for Kotler and describes Kotler's interaction as condescending.",
+              "isCorrect": false
+            },
+            {
+              "text": "Busy and dismissive, ignoring Bruno's request.",
+              "rationale": "Kotler did engage with Bruno, though not in a helpful or respectful manner.",
+              "isCorrect": false
+            },
+            {
+              "text": "Condescending, calling Bruno 'little man' and making a crude joke.",
+              "rationale": "The analysis specifies Kotler's use of 'little man,' the ruffling of Bruno's hair, and a joke Bruno didn't understand.",
+              "isCorrect": true
+            },
+            {
+              "text": "Fearful and nervous, trying to avoid interaction.",
+              "rationale": "Kotler is portrayed as arrogant and dominant, not fearful, in his interactions.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "How did Lieutenant Kotler treat Pavel when he told him to help Bruno?",
+          "answerOptions": [
+            {
+              "text": "He spoke to Pavel respectfully, acknowledging his age.",
+              "rationale": "The analysis emphasizes Kotler's insolent orders and use of derogatory language towards Pavel, despite Pavel's age.",
+              "isCorrect": false
+            },
+            {
+              "text": "He offered Pavel a reward for helping Bruno.",
+              "rationale": "Kotler's interaction with Pavel is characterized by cruelty and commands, not incentives.",
+              "isCorrect": false
+            },
+            {
+              "text": "He used a derogatory word and called Pavel 'filthy'.",
+              "rationale": "The analysis explicitly mentions Kotler shouting, using an incomprehensible derogatory word, and calling Pavel 'filthy' while spitting.",
+              "isCorrect": true
+            },
+            {
+              "text": "He politely requested Pavel's assistance and thanked him afterwards.",
+              "rationale": "This contradicts the analysis's portrayal of Kotler's abusive and dehumanizing behavior towards Pavel.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "After Bruno fell from the swing, what did Pavel do right away?",
+          "answerOptions": [
+            {
+              "text": "He ignored Bruno, fearing repercussions from Lieutenant Kotler.",
+              "rationale": "The analysis states Pavel witnessed the fall and immediately came to Bruno's aid.",
+              "isCorrect": false
+            },
+            {
+              "text": "He called for Mother to come and help Bruno.",
+              "rationale": "Pavel took direct action himself, carrying Bruno into the kitchen and treating the wound before Mother returned.",
+              "isCorrect": false
+            },
+            {
+              "text": "He carried Bruno into the kitchen and professionally cleaned and bandaged his wound.",
+              "rationale": "The analysis details Pavel's calm and professional demeanor in treating Bruno's injuries with gentle care.",
+              "isCorrect": true
+            },
+            {
+              "text": "He scolded Bruno for being careless on the swing.",
+              "rationale": "Pavel's response is described as one of kindness and reassurance, not scolding.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "In Chapter 7, what important fact did Bruno learn about Pavel's past?",
+          "answerOptions": [
+            {
+              "text": "He used to be a famous actor in Berlin.",
+              "rationale": "Pavel's revealed profession was in a different field, related to healing.",
+              "isCorrect": false
+            },
+            {
+              "text": "He was a teacher before coming to Out-With.",
+              "rationale": "While a respected profession, the analysis specifies a different one that explains his medical competence.",
+              "isCorrect": false
+            },
+            {
+              "text": "He practised as a doctor before coming to Out-With.",
+              "rationale": "The analysis states Pavel confirmed, 'Yes I am,' when Bruno asked if he was a doctor, explaining he 'practised as a doctor.'",
+              "isCorrect": true
+            },
+            {
+              "text": "He was a soldier who fought alongside Bruno's father.",
+              "rationale": "Pavel's role at Out-With is that of a prisoner, and his past profession was medical, not military.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "After Mother saw Pavel had treated Bruno's wound, what did she tell Pavel to do?",
+          "answerOptions": [
+            {
+              "text": "To report Lieutenant Kotler for his earlier harshness.",
+              "rationale": "Mother's concern was focused on how the Commandant would perceive the situation, not on Kotler's behavior at that moment.",
+              "isCorrect": false
+            },
+            {
+              "text": "To ensure Bruno stayed off the swing in the future.",
+              "rationale": "Her immediate instruction to Pavel was about managing information, not about Bruno's future activities.",
+              "isCorrect": false
+            },
+            {
+              "text": "'If the Commandant asks, we'll say that I cleaned Bruno up.'",
+              "rationale": "The analysis directly quotes this instruction, highlighting it as a moment of moral compromise.",
+              "isCorrect": true
+            },
+            {
+              "text": "To accept a small payment for his kindness.",
+              "rationale": "Mother's action was one of deception and self-preservation, not reward for Pavel.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "How did Bruno feel about his Mother taking credit for cleaning his wound?",
+          "answerOptions": [
+            {
+              "text": "As a sensible precaution to protect Pavel.",
+              "rationale": "Bruno's understanding was more straightforward; he saw it as an unfair action by his Mother.",
+              "isCorrect": false
+            },
+            {
+              "text": "As 'terribly selfish' and taking credit for something she hadn't done.",
+              "rationale": "The analysis explicitly states this was Bruno's perception, marking a shift in his view of his mother.",
+              "isCorrect": true
+            },
+            {
+              "text": "As a sign of her deep love and concern for him.",
+              "rationale": "While she was concerned, Bruno's interpretation focused on the injustice towards Pavel and the act of claiming false credit.",
+              "isCorrect": false
+            },
+            {
+              "text": "As a clever way to avoid trouble with Father.",
+              "rationale": "Bruno did not yet grasp the adult complexities of fear and self-preservation; he saw it in simpler moral terms.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "Chapter 7 talks about dehumanization. Which character's story best shows this idea?",
+          "answerOptions": [
+            {
+              "text": "Bruno, through his boredom and isolation.",
+              "rationale": "While Bruno suffers from isolation, Pavel's situation more directly exemplifies the stripping of identity and dignity.",
+              "isCorrect": false
+            },
+            {
+              "text": "Lieutenant Kotler, through his arrogant behavior.",
+              "rationale": "Kotler is an agent of dehumanization, not its primary victim in this context; his actions contribute to the theme by dehumanizing others.",
+              "isCorrect": false
+            },
+            {
+              "text": "Pavel, through his transformation from a doctor to a subservient waiter and his physical deterioration.",
+              "rationale": "The analysis emphasizes Pavel's loss of professional identity, his current menial role, and his declining physical state as key illustrations of dehumanization.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mother, through her moral compromises.",
+              "rationale": "Mother's actions relate more to moral compromise and fear; Pavel's experience is the central example of dehumanization discussed.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "question": "In Chapter 7, which event strongly hints at the violence and cruelty in the camp later?",
+          "answerOptions": [
+            {
+              "text": "Bruno's fall from the swing.",
+              "rationale": "Bruno's fall is a catalyst for interactions but doesn't directly foreshadow the camp's systemic brutality.",
+              "isCorrect": false
+            },
+            {
+              "text": "Mother's trip to a nearby city for a 'change of air'.",
+              "rationale": "This foreshadows Mother's unhappiness and desire to leave, but not specifically the camp's violence.",
+              "isCorrect": false
+            },
+            {
+              "text": "Lieutenant Kotler's abusive treatment of Pavel, including calling him 'filthy'.",
+              "rationale": "The analysis identifies Kotler's behavior towards Pavel as a 'chilling precursor to the casual brutality' of the camp.",
+              "isCorrect": true
+            },
+            {
+              "text": "Pavel's revelation that he was a doctor.",
+              "rationale": "This highlights loss and dehumanization, but Kotler's actions are a more direct foreshadowing of active violence.",
+              "isCorrect": false
+            }
+          ]
+        }
+    ];
+
+    let userSelections = {};
+
+    async function callGeminiAPI(prompt, outputElementId) {
+        const outputDiv = document.getElementById(outputElementId);
+        outputDiv.classList.remove('hidden');
+        outputDiv.innerHTML = '<div class="text-center text-slate-500">Loading insight...</div>';
+
+        let chatHistory = [];
+        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+        const payload = { contents: chatHistory };
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                outputDiv.innerHTML = text;
+            } else {
+                outputDiv.innerHTML = '<div class="text-red-500">Error: Could not generate insight. Please ensure API_KEY is set.</div>';
+            }
+        } catch (error) {
+            console.error('Error calling Gemini API:', error);
+            outputDiv.innerHTML = '<div class="text-red-500">Error: Failed to connect to Gemini API. Check console for details.</div>';
+        }
+    }
+
+    function getDefinition(word, outputId) {
+        const prompt = `Provide a simple, clear definition for the word '${word}' in the context of 'The Boy in the Striped Pyjamas', suitable for an English as an Additional Language learner, in one sentence.`;
+        callGeminiAPI(prompt, outputId);
+    }
+
+    function getBrainstormIdeas(topic, outputId) {
+        const prompt = `Brainstorm 3-4 key ideas or points to consider before reading Chapter 7 of 'The Boy in the Striped Pyjamas', focusing on ${topic}, suitable for an English as an Additional Language learner. Present as bullet points.`;
+        callGeminiAPI(prompt, outputId);
+    }
+
+    function checkUnderstanding(word, outputId) {
+        const prompt = `Provide a sentence using the word '${word}' or a closely related synonym that demonstrates its meaning in the context of 'The Boy in the Striped Pyjamas', suitable for an English as an Additional Language learner. Focus on practical usage.`;
+        callGeminiAPI(prompt, outputId);
+    }
+
+    function getAIFeedback(studentAnswer, outputId, promptContext) {
+        if (!studentAnswer.trim()) {
+            document.getElementById(outputId).classList.remove('hidden');
+            document.getElementById(outputId).innerHTML = '<div class="text-orange-500">Please type an answer before requesting feedback.</div>';
+            return;
+        }
+        const prompt = `Provide a brief, encouraging, and thought-provoking feedback or alternative perspective on the following reflection about ${promptContext} from 'The Boy in the Striped Pyjamas': '${studentAnswer}'. Focus on expanding the student's thinking without giving a direct answer, suitable for an English as an Additional Language learner, in 3-4 sentences.`;
+        callGeminiAPI(prompt, outputId);
+    }
+
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quizContainer');
+        quizContainer.innerHTML = ''; // Clear previous quiz if any
+
+        quizQuestions.forEach((q, qIndex) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'quiz-question';
+            questionDiv.innerHTML = `<p class="font-bold text-slate-800 mb-3">Q${qIndex + 1}: ${q.question}</p>`;
+
+            const optionsDiv = document.createElement('div');
+            q.answerOptions.forEach((option, oIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.setAttribute('data-question-index', qIndex);
+                optionDiv.setAttribute('data-option-index', oIndex);
+                optionDiv.innerHTML = `<span>${option.text}</span><div class="rationale hidden"></div>`;
+                optionDiv.onclick = selectOption;
+                optionsDiv.appendChild(optionDiv);
+            });
+            questionDiv.appendChild(optionsDiv);
+            quizContainer.appendChild(questionDiv);
+        });
+    }
+
+    function selectOption(event) {
+        const selectedOptionDiv = event.currentTarget;
+        const qIndex = selectedOptionDiv.getAttribute('data-question-index');
+        const oIndex = selectedOptionDiv.getAttribute('data-option-index');
+
+        // Deselect any other options for this question
+        const questionOptions = document.querySelectorAll(`.quiz-option[data-question-index="${qIndex}"]`);
+        questionOptions.forEach(option => {
+            option.classList.remove('selected');
+            option.querySelector('.rationale').classList.add('hidden'); // Hide rationales on re-selection
+        });
+
+        // Select the current option
+        selectedOptionDiv.classList.add('selected');
+        userSelections[qIndex] = oIndex; // Store user's selection
+    }
+
+    function submitQuiz() {
+        let correctCount = 0;
+        const quizContainer = document.getElementById('quizContainer');
+        const quizResultsDiv = document.getElementById('quizResults');
+        quizResultsDiv.classList.remove('hidden');
+        quizResultsDiv.innerHTML = ''; // Clear previous results
+
+        quizQuestions.forEach((q, qIndex) => {
+            const selectedOptionIndex = userSelections[qIndex];
+            const questionOptions = document.querySelectorAll(`.quiz-option[data-question-index="${qIndex}"]`);
+
+            questionOptions.forEach((optionDiv, oIndex) => {
+                const rationaleDiv = optionDiv.querySelector('.rationale');
+                rationaleDiv.classList.remove('hidden'); // Show rationale for all options
+                rationaleDiv.textContent = q.answerOptions[oIndex].rationale;
+
+                if (q.answerOptions[oIndex].isCorrect) {
+                    optionDiv.classList.add('correct');
+                    rationaleDiv.classList.add('correct');
+                    rationaleDiv.classList.remove('incorrect');
+                } else {
+                    optionDiv.classList.add('incorrect');
+                    rationaleDiv.classList.add('incorrect');
+                    rationaleDiv.classList.remove('correct');
+                }
+
+                // If user selected this option, highlight it if correct/incorrect
+                if (selectedOptionIndex === oIndex) {
+                    optionDiv.classList.remove('selected'); // Remove selected class, as correct/incorrect takes precedence
+                    if (q.answerOptions[oIndex].isCorrect) {
+                        correctCount++;
+                    }
+                }
+                optionDiv.style.pointerEvents = 'none'; // Disable clicking after submission
+            });
+        });
+
+        quizResultsDiv.textContent = `You scored ${correctCount} out of ${quizQuestions.length} questions correctly! Review the explanations above.`;
+        window.scrollTo(0, document.body.scrollHeight); // Scroll to bottom to see results
+    }
+
+    // Initialize quiz on page load
+    document.addEventListener('DOMContentLoaded', renderQuiz);
+</script>
+</body>
+</html>
